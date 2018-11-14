@@ -32,10 +32,8 @@ func main() {
       fmt.Printf("%s sent: %s\n", addr, string(msg))
 
       // Write message back to browser
-      for a, c := range connections {
-        if a != addr.String() {
-          c.WriteMessage(msgType, []byte("< " + string(msg)))
-        }
+      for _, c := range connections {
+          c.WriteMessage(msgType, []byte("> " + string(msg)))
       }
     }
   })

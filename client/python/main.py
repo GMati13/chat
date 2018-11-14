@@ -1,40 +1,31 @@
-#!/usr/bin/env python3
+import ui
+import command
+import wsclient
+import action
+from urwid import Text
 
-import websocket
-try:
-    import thread
-except ImportError:
-    import _thread as thread
-import time
+app = ui.Window(vertical_align='bottom')
 
-server = input('server: ')
+def on_message(ws, message): msg_container.append_child(Text(message))
 
-def on_message(ws, message):
-    print(message)
+client = wsclient.WSClient(on_message=on_message)
 
-def on_error(ws, error):
-    print(error)
+msg_container = ui.Container()
 
-def on_close(ws):
-    print("### closed ###")
+def on_enter(value):
+    if command.has_true(value):
+        cmd = command.pretty(value)
+        if   cmd['head'] in ('q', 'quit', 'exit'):    action.exit_from_app(app, client)
+        elif cmd['head'] in ('c', 'conn', 'connect'): action.run_socket_connection(client, cmd['args'][0])
+        return 0
+    if client.socket != None:
+        client.socket.send(value)
+    return 0
 
-def on_open(ws):
-    def run(*args):
-        cmd = ''
-        while cmd != 'exit':
-            if cmd != '':
-                ws.send(cmd)
-            cmd = input()
-        time.sleep(1)
-        ws.close()
-        print("thread terminating...")
-    thread.start_new_thread(run, ())
+msg_input = ui.TextInput('message: ', on_enter=on_enter)
 
+for item in (msg_container, msg_input): app.body.append_child(item)
 
-if __name__ == "__main__":
-    ws = websocket.WebSocketApp('ws://{}'.format(server),
-                              on_message = on_message,
-                              on_error = on_error,
-                              on_close = on_close)
-    ws.on_open = on_open
-    ws.run_forever()
+app.body.set_focus(msg_input)
+
+app.run()
