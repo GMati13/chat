@@ -9,6 +9,7 @@
 
 #### message mode
 `esc` - set normal mode
+
 `enter` - send message
 
 #### command mode
