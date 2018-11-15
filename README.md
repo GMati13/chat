@@ -17,10 +17,10 @@
 
 #### commands
 `:connect <url>` - connect to server
-###### :connect ws://localhost:8181
+`:connect ws://localhost:8181`
 
 `:name <name>` - set name
-###### :name Tester
+`:name Tester`
 
 `:multiline` - set multiline message mode
 
