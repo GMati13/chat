@@ -71,3 +71,15 @@ class Warn(urwid.Text):
 class Info(urwid.Text):
     def __init__(self, markup, align='left', wrap='space', layout=None):
         super(Info, self).__init__('info: ' + markup, align, wrap, layout)
+
+def message(message, author):
+    return urwid.Pile([
+        urwid.Columns([
+             urwid.Padding(urwid.AttrMap(urwid.Text(author, align='center'), 'author'), right=1),
+             ('weight', 10, urwid.AttrMap(urwid.Text(message), 'message'))
+             ],
+             min_width=10
+        ),
+        urwid.Divider()
+        ]
+    )

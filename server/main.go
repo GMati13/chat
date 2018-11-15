@@ -33,7 +33,7 @@ func main() {
 
       // Write message back to browser
       for _, c := range connections {
-          c.WriteMessage(msgType, []byte("> " + string(msg)))
+          c.WriteMessage(msgType, msg)
       }
     }
   })

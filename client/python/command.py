@@ -1,8 +1,5 @@
 command_sign = ':'
 
-def has_true(line):
-    return len(line) > 0 and line[0] == command_sign
-
 def pretty(line):
     cmd = line.strip().split()
     if len(line) == 0:
@@ -13,5 +10,8 @@ def pretty(line):
             'tail': ' '.join(cmd[1:])
             }
 
-exit    = ('q', 'quit', 'exit')
-connect = ('c', 'conn', 'connect')
+exit         = ('q', 'quit', 'exit')
+connect      = ('c', 'conn', 'connect')
+send_message = ('s', 'send')
+multiline    = ('ml', 'multiline')
+set_name     = ('n', 'name')
