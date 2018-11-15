@@ -2,7 +2,9 @@
 
 #### normal mode
 `i` - set message mode
+
 `:` - set command mode
+
 `h` `j` `k` `l` - move cursor (left down up right)
 
 #### message mode
@@ -17,9 +19,11 @@
 
 #### commands
 `:connect <url>` - connect to server
+
 `:connect ws://localhost:8181`
 
 `:name <name>` - set name
+
 `:name Tester`
 
 `:multiline` - set multiline message mode
