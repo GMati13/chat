@@ -6,7 +6,7 @@ def exit_from_app(app, client):
         client.disconnect()
     app.exit()
 
-def run_socket_connection(client, url):
+def run_socket_connection(client, url=None):
     Thread(target=lambda: client.connect(url)).start()
 
 def send_message(client, text, author):
