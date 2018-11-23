@@ -1,5 +1,7 @@
+from datetime import datetime
 import asyncio
-from urwid import Text, SimpleListWalker as ListWalker, Pile, SolidFill, Frame, MainLoop, AsyncioEventLoop, ExitMainLoop, Edit, ListBox, AttrMap, Divider, Filler
+from urwid import Text, SimpleListWalker as ListWalker, Pile, SolidFill, Frame, MainLoop, AsyncioEventLoop, ExitMainLoop, Edit, ListBox, AttrMap, Divider, Filler, Columns
+import styles as style
 
 class Container(Pile):
     def __init__(self, widget_list=[], focus_item=None):
@@ -80,9 +82,31 @@ class List(ListBox):
         if self.auto_scroll != None:
             super(List, self).keypress((119, 11), self.auto_scroll)
 
-class Message(Text):
-    def __init__(self, message=None, text=None):
-        if text != None:
-            super(Message, self).__init__(text, 'right')
+    def scroll_down(self):
+        super(List, self).keypress((119, 11), 'end')
+
+class Message(Columns):
+    def __init__(self, message, text=None):
+        date = datetime.fromtimestamp(message['date']).strftime('%H:%M')
+        text = message['text'] or '' if text is None else text
+
+        if message['outgoing'] or message['from_user']['is_self'] is True:
+            super(Message, self).__init__([
+                ('weight', 10, Divider()),
+                ('pack', Text(text, 'right')),
+                ('pack', Text('  ' + str(date), 'right')) ])
         else:
-            super(Message, self).__init__(message['text'], 'left')
+            super(Message, self).__init__([
+                ('pack', Text(str(date) + '  ', 'left')),
+                ('pack', AttrMap(Text(text), 'message')),
+                ('weight', 10, Divider()) ])
+        
+
+class StatusLine(AttrMap):
+    def __init__(self, attr_map=style.STATUS_LINE, focus_map=style.STATUS_LINE_FOCUSED):
+        self.left_column = Text('')
+        self.center_column = Text('')
+        self.right_column = Text('')
+        self.body = Columns([ self.left_column, self.center_column, self.right_column ], min_width=0)
+        super(StatusLine, self).__init__(self.body, attr_map, focus_map)
+

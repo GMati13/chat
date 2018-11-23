@@ -4,7 +4,7 @@ import ui
 
 client.start()
 
-client.chat_with = 'NamelessPerson'
+client.chat_with('me')
 
 ui.msg_line.on_enter = handler.msg_line_on_enter
 ui.msg_line.on_key_press = handler.msg_line_on_key_press
