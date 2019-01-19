@@ -5,6 +5,7 @@ import src.handlers.footer
 import src.handlers.body
 import src.handlers.mode
 import src.storage as store
+import src.handlers.client.listeners
 
 client.start()
 

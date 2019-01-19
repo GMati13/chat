@@ -15,7 +15,7 @@ def message_line_on_key_press(key, Edit):
         return None
     if app.mode.current_mode == 'MESSAGE':
         if key in keybins.message:
-            return keybins.message[key]()
+            return keybins.message[key]() or key
     return key
 
 def message_line_on_click(event, button, x, y, focus):

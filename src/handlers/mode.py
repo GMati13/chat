@@ -37,7 +37,9 @@ def on_toggle(prev_mode, next_mode):
         footer.tools.set_focus(2)
         footer.command_line.clear()
         footer.command_line.set_caption(':')
-    if next_mode in ['DIALOGS']:
+    if next_mode in ['DIALOGS', 'CHAT']:
+        document.Document.set_focus('body')
+    if next_mode in ['CHAT']:
         document.Document.set_focus('body')
 
 app.mode.on_init = on_init

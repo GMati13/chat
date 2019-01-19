@@ -8,7 +8,8 @@ class Mode():
         'NORMAL',
         'COMMAND',
         'MESSAGE',
-        'DIALOGS'
+        'DIALOGS',
+        'CHAT'
     ]
 
     def __init__(self, mode=None, on_toggle=None, on_init=None):
