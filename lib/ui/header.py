@@ -1,3 +1,3 @@
-import urwid
+import lib.urwid as urwid
 
-Header = urwid.Columns([])
+Header = urwid.StatusLine()
