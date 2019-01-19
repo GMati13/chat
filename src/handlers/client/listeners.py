@@ -6,11 +6,11 @@ import lib.urwid as urwid
 
 @client.on_message()
 def on_message(c, message):
-    chat = store.get_item('current_chat')
-    if chat is None:
+    current_chat = store.get_item('current_chat')
+    if current_chat is None:
         return
-    chat_id = chat['id']
-    chat_type = chat['type']
+    chat_id = current_chat['id']
+    chat_type = current_chat['type']
     if message['chat']['id'] == chat_id:
         chat.append_message(message, chat_type)
         body.history.scroll_end()
