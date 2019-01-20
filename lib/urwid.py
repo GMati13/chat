@@ -101,11 +101,9 @@ class List(ListBox):
 class StatusLine(Columns):
     def __init__(self, widget_list=None, dividechars=0, focus_column=None, min_width=1, box_columns=None):
         if widget_list is None:
-            self.left_column = Text('')
-            self.right_column = Text('', align='right')
+            self.left_column = Text('', wrap='clip')
             widget_list=[
-                self.left_column,
-                self.right_column
+                self.left_column
             ]
         super(StatusLine, self).__init__(widget_list, dividechars, focus_column, min_width, box_columns)
 
